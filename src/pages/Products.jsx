@@ -27,7 +27,7 @@ const Products = () => {
         <h3>{product.title}</h3>
         <img src={product.thumbnail} alt={product.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
         <p>{product.description}</p>
-        <strong>Price:${product.price}</strong>
+        <strong>Price:${product.price}</strong> <strong></strong>
         </div>
       ))}
     </div>
