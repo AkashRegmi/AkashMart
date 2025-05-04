@@ -5,7 +5,7 @@ function  Navbar () {
         <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold text-teal-700">AkashMart
-        <img src=" alt="" />
+        
         
         </div>
   
