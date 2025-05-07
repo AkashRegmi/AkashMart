@@ -5,7 +5,7 @@ import Ca3 from "../assets/Ca3.png";
 import Ca4 from "../assets/Ca4.png";
 import { Link } from "react-router-dom";
 const images = [Ca1, Ca2, Ca3, Ca4];
-const Caroseal = () => {
+const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -58,4 +58,4 @@ const Caroseal = () => {
   );
 };
 
-export default Caroseal;
+export default Carousel;

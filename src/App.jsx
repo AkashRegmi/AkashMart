@@ -8,7 +8,8 @@ import Contact from "./pages/Contact";
 import Error from "./pages/Error";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-import Caroseal from "./pages/Caroseal";
+
+import Carousel from "./pages/Carousel";
 
 const App = () => {
   return (
@@ -16,7 +17,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/caroseal" element={<Caroseal />} />
+          <Route path="/Carousel" element={<Carousel />} />
 
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<Iproducts />} />
