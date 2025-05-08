@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 
 import Carousel from "./pages/Carousel";
+import FeaturedProducts from "./pages/FeaturedProducts";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Carousel" element={<Carousel />} />
+          <Route path="/feature" element={<FeaturedProducts />} />
 
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<Iproducts />} />
