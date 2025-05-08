@@ -1,7 +1,14 @@
 import { IoMdCart } from "react-icons/io";
 import { IoMdSearch } from "react-icons/io";
 import Logo from "../assets/AkashMart.jpg"
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 function  Navbar () {
+  const navigate=useNavigate();
+
+  const handelClick=()=>{
+    navigate("/signup");
+  };
+  
     return(
 
         <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
@@ -31,7 +38,10 @@ function  Navbar () {
           </span>
         </div>
         <div>
-        <button  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
+        
+        <button  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+       onClick={handelClick} >Login</button>
+        
         </div>
       </nav>
     )
