@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Iproducts from "./pages/Iproducts";
-import Cart from "./pages/Cart";
+import Cart, { CartProvider } from "./pages/Cart";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
 import Signup from "./pages/Signup";
@@ -15,7 +15,8 @@ import FeaturedProducts from "./pages/FeaturedProducts";
 const App = () => {
   return (
     <>
-      <BrowserRouter>
+    <CartProvider>
+    <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Carousel" element={<Carousel />} />
@@ -31,6 +32,10 @@ const App = () => {
           <Route path="/*" element={<Error />} />
         </Routes>
       </BrowserRouter>
+    
+    
+    </CartProvider>
+      
     </>
   );
 };
