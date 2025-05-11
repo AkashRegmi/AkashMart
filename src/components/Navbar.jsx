@@ -1,8 +1,13 @@
 import { IoMdCart } from "react-icons/io";
 import { IoMdSearch } from "react-icons/io";
 import Logo from "../assets/AkashMart.jpg"
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate,  } from "react-router-dom";
+import {  useContext } from "react";
+import { Cart } from "../pages/Cart";
+import { CartContext} from "../context/CartContext";
+
 function  Navbar () {
+  const {cartCount}= useContext(CartContext)
   const navigate=useNavigate();
 
   const handelClick=()=>{
@@ -11,7 +16,7 @@ function  Navbar () {
   
     return(
 
-        <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
+        <nav className="bg-white shadow-md px-6 py-4  flex items-center justify-between">
         {/* Logo */}
         
          <button className=" cursor-pointer transition-transform duration-300 hover:scale-105"><img src={Logo} alt="AkashMart logo" className="h-20 rounded-2xl"/></button> 
@@ -33,9 +38,15 @@ function  Navbar () {
         <div className="relative cursor-pointer">
          
           <IoMdCart className="h-6 w-6 text-gray-700" />
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+          { /*<span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
             0
+          </span> */}
+          {cartCount > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+            {cartCount}
+            
           </span>
+          )}
         </div>
         <div>
         

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CartContext } from "../context/CartContext";
 
 const FeaturedProducts = () => {
   const [products1, setProducts1] = useState([]);
+  const { updateCartCount } = useContext(CartContext);
   useEffect(() => {
     fetch("https://dummyjson.com/products?limit=8")
       .then((res) => res.json())
@@ -24,6 +26,7 @@ const FeaturedProducts = () => {
     }
     localStorage.setItem("cart", JSON.stringify(cart));
     alert(`${product.title} added to Cart`);
+    updateCartCount();
   };
   return (
     <>
