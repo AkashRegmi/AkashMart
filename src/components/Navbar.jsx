@@ -49,8 +49,8 @@ function  Navbar () {
   
         
         <div className="relative cursor-pointer">
-         
-          <IoMdCart className="h-6 w-6 text-gray-700" />
+         <Link to="/cartpage"><IoMdCart className="h-6 w-6 text-gray-700" /></Link>
+          
           { /*<span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
             0
           </span> */}

@@ -12,6 +12,7 @@ import Signin from "./pages/Signin";
 import Carousel from "./pages/Carousel";
 import FeaturedProducts from "./pages/FeaturedProducts";
 import { CartProvider } from "./context/CartContext";
+import CartPage from "./pages/CartPage";
 
 const App = () => {
   return (
@@ -26,9 +27,12 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<Iproducts />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cartpage" element={<CartPage />} />
+
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+         
 
           <Route path="/*" element={<Error />} />
         </Routes>
