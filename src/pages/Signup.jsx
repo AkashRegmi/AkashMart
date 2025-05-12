@@ -53,8 +53,8 @@ const Signup = () => {
     try {
       await schema.validate(formData, { abortEarly: false });
       setErrors({});
-      const { email, password } = formData;
-      localStorage.setItem("user", JSON.stringify({ email, password }));
+      const { name,email, password } = formData;
+      localStorage.setItem("user", JSON.stringify({ name,email, password }));
 
       // ✅ Redirect to home page
       navigate("/");

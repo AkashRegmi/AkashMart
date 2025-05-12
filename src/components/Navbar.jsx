@@ -2,16 +2,29 @@ import { IoMdCart } from "react-icons/io";
 import { IoMdSearch } from "react-icons/io";
 import Logo from "../assets/AkashMart.jpg"
 import { Link, useNavigate,  } from "react-router-dom";
-import {  useContext } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { Cart } from "../pages/Cart";
-import { CartContext} from "../context/CartContext";
+import { CartContext,} from "../context/CartContext";
 
 function  Navbar () {
-  const {cartCount}= useContext(CartContext)
+  const [userName, setUserName] = useState("");
+  const {cartCount,updateCartCount}= useContext(CartContext)
   const navigate=useNavigate();
 
+ useEffect(()=>{
+  const user = JSON.parse(localStorage.getItem("user"));
+  if(user && user.name){
+    setUserName(user.name.slice(0, 1).toUpperCase());
+  }
+ },[]);
   const handelClick=()=>{
     navigate("/signup");
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("cart"); 
+    updateCartCount(0);
+    window.location.reload(); // Refresh to update the navbar
   };
   
     return(
@@ -50,8 +63,23 @@ function  Navbar () {
         </div>
         <div>
         
-        <button  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-       onClick={handelClick} >Login</button>
+        {/*<button  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+       onClick={handelClick} >Signup</button>*/}
+         <div className="flex items-center space-x-4">
+        {userName ? (
+          <>
+            <span>Hi, {userName}</span>
+            <button onClick={handleLogout} className="bg-red-500 px-3 py-1 rounded hover:bg-red-600">
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+       
+            <Link to="/signup" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Signup</Link>
+          </>
+        )}
+      </div>
         
         </div>
       </nav>

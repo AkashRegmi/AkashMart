@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 const FeaturedProducts = () => {
   const [products1, setProducts1] = useState([]);
   const { updateCartCount } = useContext(CartContext);
+  const navigate= useNavigate();
+
   useEffect(() => {
     fetch("https://dummyjson.com/products?limit=8")
       .then((res) => res.json())
@@ -15,7 +18,20 @@ const FeaturedProducts = () => {
     /*  this is handeling the cart */
   }
   const handleAddToCart = (product) => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+     const user = JSON.parse(localStorage.getItem("user"));
+    const email = user?.email;
+     if (!email) {
+    alert("Please log in first");
+    navigate("/signin");
+    return;
+  }
+    // if (!user) {
+    //   alert("Please login to add items to the cart.");
+    //   navigate("/signup"); // redirect to login if not logged in
+    //   return;
+    // }
+    const cartKey = `cart_${email}`;
+    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
     const existingProduct = cart.find((item) => {
       item.id === product.id;
     });
@@ -24,7 +40,7 @@ const FeaturedProducts = () => {
     } else {
       cart.push({ ...product, quantity: 1 });
     }
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     alert(`${product.title} added to Cart`);
     updateCartCount();
   };
