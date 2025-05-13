@@ -13,6 +13,7 @@ import Carousel from "./pages/Carousel";
 import FeaturedProducts from "./pages/FeaturedProducts";
 import { CartProvider } from "./context/CartContext";
 import CartPage from "./pages/CartPage";
+import AdminPanel from "./pages/AdminPanel";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/Carousel" element={<Carousel />} />
           <Route path="/feature" element={<FeaturedProducts />} />
+          <Route path="/admin" element={<AdminPanel />} />
 
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<Iproducts />} />

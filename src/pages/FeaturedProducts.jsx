@@ -7,13 +7,27 @@ const FeaturedProducts = () => {
   const { updateCartCount } = useContext(CartContext);
   const navigate= useNavigate();
 
-  useEffect(() => {
-    fetch("https://dummyjson.com/products?limit=8")
-      .then((res) => res.json())
-      .then((data) => setProducts1(data.products))
+  // useEffect(() => {
+  //   fetch("https://dummyjson.com/products?limit=8")
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts1(data.products))
 
-      .catch((err) => console.error("Error fetching products:", err));
-  }, []);
+  //     .catch((err) => console.error("Error fetching products:", err));
+  // }, []);
+  useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://dummyjson.com/products?limit=8");
+      const data = await response.json();
+      const localProducts = JSON.parse(localStorage.getItem("admin_products")) || [];
+      setProducts1([...localProducts, ...data.products]); // Admin products first
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
+
+  fetchData();
+}, []);
   {
     /*  this is handeling the cart */
   }

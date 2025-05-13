@@ -49,7 +49,7 @@ function  Navbar () {
   
         
         <div className="relative cursor-pointer">
-         <Link to="/cartpage"><IoMdCart className="h-6 w-6 text-gray-700" /></Link>
+         <Link to="/cartpage"><IoMdCart className="h-6 w-6 m-5 text-gray-700" /></Link>
           
           { /*<span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
             0
@@ -76,8 +76,20 @@ function  Navbar () {
         ) : (
           <>
        
-            <Link to="/signup" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-8 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Signup</Link>
+            <Link
+        to="/signup"
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Login as Customer
+      </Link>
+      <Link
+        to="/admin"
+        className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-500 dark:hover:bg-green-600 focus:outline-none dark:focus:ring-green-800"
+      >
+        Login as Admin
+      </Link>
           </>
+          
         )}
       </div>
         
