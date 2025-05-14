@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
+  const navigate= useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -43,6 +46,8 @@ const AdminPanel = () => {
       price: "",
       thumbnail: "",
     });
+    navigate("/adminproduct")
+
   };
 
   return (

@@ -15,6 +15,7 @@ import { CartProvider } from "./context/CartContext";
 import CartPage from "./pages/CartPage";
 import AdminPanel from "./pages/AdminPanel";
 import AdminLogin from "./pages/AdminLogin";
+import AdminProductlist from "./pages/AdminProductlist";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/feature" element={<FeaturedProducts />} />
           <Route path="/adminpanel" element={<AdminPanel />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/adminproduct" element={<AdminProductlist />} />
 
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<Iproducts />} />
