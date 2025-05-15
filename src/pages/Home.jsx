@@ -7,7 +7,7 @@ import FeaturedProducts from './FeaturedProducts'
 const Home = () => {
   return (
   <>
-  <Navbar/>
+ 
   <Carousel/>
   <FeaturedProducts/>
   </>

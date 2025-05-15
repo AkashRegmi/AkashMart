@@ -9,7 +9,7 @@ const AdminLogin = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const adminEmail = "admin@example.com";
+    const adminEmail = "admin@gmail.com";
     const adminPassword = "admin123";
     if (email === adminEmail && password === adminPassword) {
       localStorage.setItem("Admin", JSON.stringify({ email, role: "admin" }));
