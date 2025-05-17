@@ -38,10 +38,12 @@ function Navbar() {
   return (
     <nav className="bg-white shadow-md px-6 py-4  flex items-center justify-between">
       {/* Logo */}
-
-      <button className=" cursor-pointer transition-transform duration-300 hover:scale-105">
+    <Link to="/">
+     <button className=" cursor-pointer transition-transform duration-300 hover:scale-105">
         <img src={Logo} alt="AkashMart logo" className="h-20 rounded-2xl" />
       </button>
+    </Link>
+     
 
       {/* Search Bar */}
       <div className="flex-1 mx-6">

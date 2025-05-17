@@ -3,10 +3,13 @@ import React, { createContext, useEffect, useState } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+
   const [cartCount, setCartCount] = useState(0);
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
+
     const email = user?.email;
     const cart = JSON.parse(localStorage.getItem(`cart_${email}`)) || [];
     const total = cart.reduce((sum, item) => sum + item.quantity, 0);
