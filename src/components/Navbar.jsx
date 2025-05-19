@@ -14,14 +14,12 @@ function Navbar() {
   useEffect(() => {
     const adminuser = JSON.parse(localStorage.getItem("Admin"));
     if (adminuser && adminuser.email) {
-      setAdminName(adminuser.email.slice(0, 1).toUpperCase());
-    }
-  }, []);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.name) {
-      setUserName(user.name.slice(0, 1).toUpperCase());
+      setAdminName(adminuser.email.slice(0, 2).toUpperCase());
+    } else {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.name) {
+        setUserName(user.name.slice(0, 1).toUpperCase());
+      }
     }
   }, []);
 
@@ -29,21 +27,21 @@ function Navbar() {
     // localStorage.removeItem("user");
     // localStorage.removeItem("cart");
     // localStorage.removeItem("Admin");
-    updateCartCount(0);
+
     setUserName("");
     setAdminName("");
+    updateCartCount(0);
     navigate("/"); // Refresh to update the navbar
   };
 
   return (
     <nav className="bg-white shadow-md px-6 py-4  flex items-center justify-between">
       {/* Logo */}
-    <Link to="/">
-     <button className=" cursor-pointer transition-transform duration-300 hover:scale-105">
-        <img src={Logo} alt="AkashMart logo" className="h-20 rounded-2xl" />
-      </button>
-    </Link>
-     
+      <Link to="/">
+        <button className=" cursor-pointer transition-transform duration-300 hover:scale-105">
+          <img src={Logo} alt="AkashMart logo" className="h-20 rounded-2xl" />
+        </button>
+      </Link>
 
       {/* Search Bar */}
       <div className="flex-1 mx-6">
