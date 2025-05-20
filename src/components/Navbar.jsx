@@ -13,13 +13,24 @@ function Navbar() {
   const navigate = useNavigate();
   useEffect(() => {
     const adminuser = JSON.parse(localStorage.getItem("Admin"));
+    const user = JSON.parse(localStorage.getItem("user"));
+    // if (adminuser && adminuser.email) {
+    //   setAdminName(adminuser.email.slice(0, 2).toUpperCase());
+    // } else {
+    //   const user = JSON.parse(localStorage.getItem("user"));
+    //   if (user && user.name) {
+    //     setUserName(user.name.slice(0, 1).toUpperCase());
+    //   }
+    // }
     if (adminuser && adminuser.email) {
       setAdminName(adminuser.email.slice(0, 2).toUpperCase());
+      setUserName(""); // Clear customer name if admin found
+    } else if (user && user.name) {
+      setUserName(user.name.slice(0, 1).toUpperCase());
+      setAdminName(""); // Clear admin name if customer found
     } else {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user && user.name) {
-        setUserName(user.name.slice(0, 1).toUpperCase());
-      }
+      setUserName("");
+      setAdminName("");
     }
   }, []);
 
@@ -30,7 +41,7 @@ function Navbar() {
 
     setUserName("");
     setAdminName("");
-    updateCartCount(0);
+    updateCartCount();
     navigate("/"); // Refresh to update the navbar
   };
 

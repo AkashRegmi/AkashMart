@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const { updateCartCount } = useContext(CartContext);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -33,30 +35,29 @@ const Signin = () => {
       setLoginError("");
 
       // Get user from localStorage
-      const storedUser = JSON.parse(localStorage.getItem("user"))||[];
-       const AUser = storedUser.find(
-        (u) =>
-          u.email === formData.email && u.password === formData.password
+      const storedUser = JSON.parse(localStorage.getItem("user")) || [];
+      const AUser = storedUser.find(
+        (u) => u.email === formData.email && u.password === formData.password
       );
 
-       if (AUser) {
+      if (AUser) {
         // Save logged-in user to localStorage
         localStorage.setItem(
           "user",
           JSON.stringify({ email: AUser.email, password: AUser.password })
-
-
         );
 
-         const savedCart = JSON.parse(localStorage.getItem(`cart_${AUser.email}`)) || [];
-         localStorage.setItem("cart", JSON.stringify(savedCart));
+        const savedCart =
+          JSON.parse(localStorage.getItem(`cart_${AUser.email}`)) || [];
+        localStorage.setItem("cart", JSON.stringify(savedCart));
+        updateCartCount();
 
-      // Compare credentials
-      // if (
-      //   storedUser &&
-      //   formData.email === storedUser.email &&
-      //   formData.password === storedUser.password
-      // ) {
+        // Compare credentials
+        // if (
+        //   storedUser &&
+        //   formData.email === storedUser.email &&
+        //   formData.password === storedUser.password
+        // ) {
         navigate("/");
       } else {
         setLoginError("Invalid email or password");
