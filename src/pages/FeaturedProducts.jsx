@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const FeaturedProducts = () => {
   const [products1, setProducts1] = useState([]);
   const { updateCartCount } = useContext(CartContext);
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   fetch("https://dummyjson.com/products?limit=8")
@@ -15,45 +15,48 @@ const FeaturedProducts = () => {
   //     .catch((err) => console.error("Error fetching products:", err));
   // }, []);
   useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch("https://dummyjson.com/products?limit=8");
-      const data = await response.json();
-      const localProducts = JSON.parse(localStorage.getItem("admin_products")) || [];
-      setProducts1([...localProducts, ...data.products]); // Admin products first
-    } catch (err) {
-      console.error("Error fetching products:", err);
-    }
-  };
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://dummyjson.com/products?limit=8");
+        const data = await response.json();
+        const localProducts =
+          JSON.parse(localStorage.getItem("admin_products")) || [];
+        setProducts1([...localProducts, ...data.products]); // Admin products first
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      }
+    };
 
-  fetchData();
-}, []);
+    fetchData();
+  }, []);
   {
     /*  this is handeling the cart */
   }
   const handleAddToCart = (product) => {
-     const user = JSON.parse(localStorage.getItem("user"));
-    const email = user?.email;
-     if (!email) {
-    alert("Please log in first");
-    navigate("/signin");
-    return;
-  }
-    // if (!user) {
-    //   alert("Please login to add items to the cart.");
-    //   navigate("/signup"); // redirect to login if not logged in
-    //   return;
-    // }
+    const simulateLogout = localStorage.getItem("simulateLogout") === "true";
+    if (simulateLogout) {
+      alert("Please log in first");
+      navigate("/signin");
+      return;
+    }
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("Please log in first");
+      navigate("/signin");
+      return;
+    }
+
+    const email = user.email;
     const cartKey = `cart_${email}`;
     let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-    const existingProduct = cart.find((item) => {
-      item.id === product.id;
-    });
+
+    const existingProduct = cart.find((item) => item.id === product.id);
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
+
     localStorage.setItem(cartKey, JSON.stringify(cart));
     alert(`${product.title} added to Cart`);
     updateCartCount();

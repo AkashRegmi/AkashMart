@@ -7,16 +7,29 @@ const CartPage = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const { updateCartCount } = useContext(CartContext);
   const navigate = useNavigate();
+
   const getCart = () => {
+    const simulateLogout = localStorage.getItem("simulateLogout") === "true";
+
+    if (simulateLogout) {
+      // If simulate logout, show empty cart
+      setCartItems([]);
+      setTotalPrice(0);
+      updateCartCount(); // update cart count to 0 in context
+      return;
+    }
+
     const user = JSON.parse(localStorage.getItem("user"));
     const email = user?.email;
     const storedCart = JSON.parse(localStorage.getItem(`cart_${email}`)) || [];
     setCartItems(storedCart);
     updateCartTotal(storedCart);
   };
+
   useEffect(() => {
     getCart();
   }, []);
+
   const updateCartTotal = (cart) => {
     const total = cart.reduce(
       (sum, item) => sum + item.price * item.quantity,
@@ -24,7 +37,15 @@ const CartPage = () => {
     );
     setTotalPrice(total);
   };
+
   const updateQuantity = (productId, delta) => {
+    const simulateLogout = localStorage.getItem("simulateLogout") === "true";
+    if (simulateLogout) {
+      alert("You are logged out. Please login to update your cart.");
+      navigate("/signin");
+      return;
+    }
+
     const updatedCart = cartItems.map((item) => {
       if (item.id === productId) {
         const newQty = item.quantity + delta;
@@ -33,8 +54,10 @@ const CartPage = () => {
       }
       return item;
     });
+
     const user = JSON.parse(localStorage.getItem("user"));
     const email = user?.email;
+
     localStorage.setItem(`cart_${email}`, JSON.stringify(updatedCart));
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCartItems(updatedCart);

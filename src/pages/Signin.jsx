@@ -39,25 +39,24 @@ const Signin = () => {
       const AUser = storedUser.find(
         (u) => u.email === formData.email && u.password === formData.password
       );
-
       if (AUser) {
-        // Save logged-in user to localStorage
         localStorage.setItem(
           "user",
-          JSON.stringify({ email: AUser.email, password: AUser.password })
+          JSON.stringify({
+            email: AUser.email,
+            password: AUser.password,
+            name: AUser.name,
+          })
         );
 
+        localStorage.removeItem("simulateLogout"); // clear simulated logout
+
+        // Restore user-specific cart
         const savedCart =
           JSON.parse(localStorage.getItem(`cart_${AUser.email}`)) || [];
         localStorage.setItem("cart", JSON.stringify(savedCart));
-        updateCartCount();
 
-        // Compare credentials
-        // if (
-        //   storedUser &&
-        //   formData.email === storedUser.email &&
-        //   formData.password === storedUser.password
-        // ) {
+        updateCartCount();
         navigate("/");
       } else {
         setLoginError("Invalid email or password");

@@ -11,29 +11,46 @@ function Navbar() {
   const [adminName, setAdminName] = useState("");
   const { cartCount, updateCartCount } = useContext(CartContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    // const adminuser = JSON.parse(localStorage.getItem("Admin"));
-    const user = JSON.parse(localStorage.getItem("user"));
-    // if (adminuser && adminuser.email) {
-    //   setAdminName(adminuser.email.slice(0, 2).toUpperCase());
-    // } else {
-    //   const user = JSON.parse(localStorage.getItem("user"));
-    //   if (user && user.name) {
-    //     setUserName(user.name.slice(0, 1).toUpperCase());
-    //   }
-    // }
-    // if (adminuser && adminuser.email) {
-    //   setAdminName(adminuser.email.slice(0, 2).toUpperCase());
-    //   setUserName(""); // Clear customer name if admin found
-    // } else 
-    if (user && user.name) {
-      setUserName(user.name.slice(0, 1).toUpperCase());
-      // setAdminName(""); // Clear admin name if customer found
-    } else {
-      setUserName("");
-      setAdminName("");
-    }
-  }, []);
+  // useEffect(() => {
+  //   // const adminuser = JSON.parse(localStorage.getItem("Admin"));
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   // if (adminuser && adminuser.email) {
+  //   //   setAdminName(adminuser.email.slice(0, 2).toUpperCase());
+  //   // } else {
+  //   //   const user = JSON.parse(localStorage.getItem("user"));
+  //   //   if (user && user.name) {
+  //   //     setUserName(user.name.slice(0, 1).toUpperCase());
+  //   //   }
+  //   // }
+  //   // if (adminuser && adminuser.email) {
+  //   //   setAdminName(adminuser.email.slice(0, 2).toUpperCase());
+  //   //   setUserName(""); // Clear customer name if admin found
+  //   // } else 
+  //   if (user && user.name) {
+  //     setUserName(user.name.slice(0, 1).toUpperCase());
+  //     // setAdminName(""); // Clear admin name if customer found
+  //   } else {
+  //     setUserName("");
+  //     setAdminName("");
+  //   }
+  // }, []);
+useEffect(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isLoggedOut = localStorage.getItem("simulateLogout");
+
+  if (user && user.name && !isLoggedOut) {
+    setUserName(user.name.slice(0, 1).toUpperCase());
+  }
+}, []);
+
+useEffect(() => {
+  const adminuser = JSON.parse(localStorage.getItem("Admin"));
+  const isLoggedOut = localStorage.getItem("simulateLogout");
+
+  if (adminuser && adminuser.email && !isLoggedOut) {
+    setAdminName(adminuser.email.slice(0, 2).toUpperCase());
+  }
+}, []);
 
   const handleLogout = () => {
     // localStorage.removeItem("user");
