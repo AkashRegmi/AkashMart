@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
@@ -11,15 +11,18 @@ export const CartProvider = ({ children }) => {
       setCartCount(0);
       return;
     }
+
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
+    const email = user?.email;
+
+    if (!email) {
       setCartCount(0);
       return;
     }
-    const cartKey = `cart_${user.email}`;
-    const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    setCartCount(total);
+
+    const cart = JSON.parse(localStorage.getItem(`cart_${email}`)) || [];
+    const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+    setCartCount(count);
   };
 
   useEffect(() => {

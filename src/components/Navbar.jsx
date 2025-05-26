@@ -53,9 +53,7 @@ useEffect(() => {
 }, []);
 
   const handleLogout = () => {
-    // localStorage.removeItem("user");
-    // localStorage.removeItem("cart");
-    // localStorage.removeItem("Admin");
+    
     setUserName("");
     setAdminName("");
     localStorage.setItem("loggedOut", "true");
