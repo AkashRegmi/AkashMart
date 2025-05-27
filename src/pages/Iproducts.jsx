@@ -1,22 +1,48 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
-function ProductPage() {
-  const { id } = useParams(); // get product ID from URL
+const IProductPage = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { updateCartCount } = useContext(CartContext);
 
   useEffect(() => {
-    const allProducts = JSON.parse(localStorage.getItem("allProducts")) || [];
-    const foundProduct = allProducts.find(p => p.id === parseInt(id));
-    setProduct(foundProduct);
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(`https://dummyjson.com/products/${id}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch product");
+        }
+
+        const data = await response.json();
+        setProduct(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
   }, [id]);
+
+  if (loading) return <div>Loading product...</div>;
+  if (error) return <div className="text-red-600">Error: {error}</div>;
+  if (!product) return <div>Product not found.</div>;
 
   const handleAddToCart = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       alert("Please log in to add to cart.");
+      navigate("/signin");
       return;
     }
 
@@ -25,7 +51,7 @@ function ProductPage() {
     const existingCart = JSON.parse(localStorage.getItem(key)) || [];
 
     const updatedCart = [...existingCart];
-    const existingItem = updatedCart.find(item => item.id === product.id);
+    const existingItem = updatedCart.find((item) => item.id === product.id);
 
     if (existingItem) {
       existingItem.quantity += 1;
@@ -36,16 +62,21 @@ function ProductPage() {
     localStorage.setItem(key, JSON.stringify(updatedCart));
     updateCartCount();
     alert("Product added to cart!");
+    navigate("/");
   };
-
-  if (!product) return <div className="p-8 text-center text-xl">Loading...</div>;
 
   return (
     <div className="p-8 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
-      <img src={product.image} alt={product.name} className="w-full max-h-96 object-contain mb-4" />
-      <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-      <p className="text-gray-600 mb-4">{product.description || "No description provided."}</p>
-      <p className="text-xl font-semibold text-green-600 mb-4">₹{product.price}</p>
+      <img
+        src={product.thumbnail}
+        alt={product.title}
+        className="w-full max-h-96 object-contain mb-4"
+      />
+      <h1 className="text-2xl font-bold mb-2">{product.title}</h1>
+      <p className="text-gray-600 mb-4">{product.description}</p>
+      <p className="text-xl font-semibold text-green-600 mb-4">
+        ₹{product.price}
+      </p>
       <button
         onClick={handleAddToCart}
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
@@ -54,6 +85,6 @@ function ProductPage() {
       </button>
     </div>
   );
-}
+};
 
-export default ProductPage;
+export default IProductPage;

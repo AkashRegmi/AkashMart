@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const FeaturedProducts = () => {
   const [products1, setProducts1] = useState([]);
@@ -69,27 +69,27 @@ const FeaturedProducts = () => {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products1.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-xl shadow-md p-4 flex flex-col"
-            >
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                className="h-48 w-full object-cover rounded-lg mb-4"
-              />
-              <h3 className="text-lg font-semibold">{product.title}</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                {product.description}
-              </p>
-              <p className="text-yellow-600 text-2xl">${product.price}</p>
-              <button
-                onClick={() => handleAddToCart(product)}
-                className="mt-auto bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <div key={product.id} className="bg-white rounded-xl shadow-md p-4 flex flex-col"
               >
-                Add to Cart
-              </button>
-            </div>
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="h-48 w-full object-cover rounded-lg mb-4"
+                />
+                <h3 className="text-lg font-semibold">{product.title}</h3>
+                <p className="text-gray-600 text-sm mb-2">
+                  {product.description}
+                </p>
+                <p className="text-yellow-600 text-2xl">${product.price}</p>
+                <button
+                  onClick={() => handleAddToCart(product)}
+                  className="mt-auto bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
